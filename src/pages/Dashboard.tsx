@@ -174,7 +174,7 @@ const Dashboard = () => {
               <CardContent className="space-y-4">
                 <div className="space-y-2">
                   <div className="flex items-baseline space-x-2">
-                    <div className="text-3xl font-bold font-playfair">
+                    <div className="text-3xl font-bold font-sans">
                       {vital.value.toFixed(vital.id === 'temperature' ? 1 : 0)}
                     </div>
                     <div className="text-sm text-muted-foreground font-medium">
@@ -220,11 +220,11 @@ const Dashboard = () => {
           <CardContent className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div className="text-center p-4 rounded-2xl bg-gradient-to-r from-primary/10 to-primary/5">
-                <div className="text-2xl font-bold font-playfair text-primary">8.2k</div>
+                <div className="text-2xl font-bold font-sans text-primary">8.2k</div>
                 <div className="text-xs text-muted-foreground">Steps Today</div>
               </div>
               <div className="text-center p-4 rounded-2xl bg-gradient-to-r from-healthy/10 to-healthy/5">
-                <div className="text-2xl font-bold font-playfair text-healthy">7h 23m</div>
+                <div className="text-2xl font-bold font-sans text-healthy">7h 23m</div>
                 <div className="text-xs text-muted-foreground">Sleep Duration</div>
               </div>
             </div>
