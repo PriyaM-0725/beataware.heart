@@ -6,19 +6,33 @@ import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Bluetooth, Wifi, Check, Loader2, Smartphone, Radio, Zap } from "lucide-react";
 
+const smartWatches = [
+  "Apple Watch Series 9",
+  "Samsung Galaxy Watch 6",
+  "Fitbit Versa 4",
+  "Garmin Venu 3",
+  "Withings ScanWatch"
+];
+
 const DeviceSetup = () => {
   const [connectionType, setConnectionType] = useState<"bluetooth" | "wifi" | null>(null);
+  const [selectedWatch, setSelectedWatch] = useState<string | null>(null);
   const [isConnecting, setIsConnecting] = useState(false);
   const [isConnected, setIsConnected] = useState(false);
   const [connectionProgress, setConnectionProgress] = useState(0);
   const navigate = useNavigate();
 
-  const handleConnect = async (type: "bluetooth" | "wifi") => {
+  const handleConnect = (type: "bluetooth" | "wifi") => {
     setConnectionType(type);
+    setSelectedWatch(null);
+  };
+
+  const handleSelectWatch = (watch: string) => {
+    setSelectedWatch(watch);
     setIsConnecting(true);
     setConnectionProgress(0);
-    
-    // Simulate connection process with progress
+
+    // Simulate connection process
     const progressInterval = setInterval(() => {
       setConnectionProgress(prev => {
         if (prev >= 100) {
@@ -37,10 +51,10 @@ const DeviceSetup = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-secondary/30 to-accent/20 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-background via-secondary/30 to-accent/20 flex items-center justify-center p-4 font-sans">
       <div className="w-full max-w-4xl space-y-10">
         <div className="text-center space-y-6 animate-slide-in-up">
-          <h1 className="text-5xl font-bold font-playfair">Connect Your Device</h1>
+          <h1 className="text-5xl font-bold">Connect Your Device</h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
             Choose how you'd like to connect your Beat Aware health monitoring device for seamless data sync
           </p>
@@ -50,102 +64,71 @@ const DeviceSetup = () => {
         <div className="space-y-8">
           {/* Connection Options */}
           <div className="grid md:grid-cols-2 gap-8">
-            <Card 
-              className={`cursor-pointer transition-all duration-500 border-2 card-hover group animate-fade-in-scale ${
-                connectionType === "bluetooth" 
-                  ? "border-primary shadow-glow gradient-card" 
-                  : "border-border hover:border-primary/50 gradient-card"
-              }`}
-              onClick={() => !isConnecting && !isConnected && handleConnect("bluetooth")}
-            >
-              <CardHeader className="text-center pb-6">
-                <div className="mx-auto h-20 w-20 rounded-3xl bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center mb-6 group-hover:scale-110 transition-all duration-300 shadow-lg">
-                  <Bluetooth className="h-10 w-10 text-white" />
-                </div>
-                <CardTitle className="text-2xl font-playfair group-hover:text-primary transition-colors">
-                  Bluetooth Connection
-                </CardTitle>
-                <CardDescription className="text-base">
-                  Connect via Bluetooth for seamless monitoring with automatic sync
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="text-center space-y-4">
-                <div className="flex justify-center space-x-2 text-sm text-muted-foreground">
-                  <div className="flex items-center space-x-1">
-                    <Smartphone className="h-4 w-4" />
-                    <span>Mobile Friendly</span>
-                  </div>
-                  <div className="flex items-center space-x-1">
-                    <Zap className="h-4 w-4" />
-                    <span>Low Power</span>
-                  </div>
-                </div>
-                {connectionType === "bluetooth" && isConnecting && (
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-center space-x-2 text-primary">
-                      <Loader2 className="h-5 w-5 animate-spin" />
-                      <span className="font-medium">Connecting...</span>
-                    </div>
-                    <Progress value={connectionProgress} className="w-full" />
-                  </div>
-                )}
-                {connectionType === "bluetooth" && isConnected && (
-                  <div className="flex items-center justify-center space-x-2 text-healthy animate-bounce-in">
-                    <Check className="h-5 w-5" />
-                    <span className="font-semibold">Connected Successfully</span>
-                  </div>
-                )}
-              </CardContent>
-            </Card>
+            {(["bluetooth", "wifi"] as const).map((type, idx) => {
+              const isTypeSelected = connectionType === type;
+              const IconComponent = type === "bluetooth" ? Bluetooth : Wifi;
+              const bgGradient = type === "bluetooth" ? "from-blue-500 to-purple-500" : "from-green-500 to-blue-500";
 
-            <Card 
-              className={`cursor-pointer transition-all duration-500 border-2 card-hover group animate-fade-in-scale ${
-                connectionType === "wifi" 
-                  ? "border-primary shadow-glow gradient-card" 
-                  : "border-border hover:border-primary/50 gradient-card"
-              }`}
-              style={{animationDelay: '0.1s'}}
-              onClick={() => !isConnecting && !isConnected && handleConnect("wifi")}
-            >
-              <CardHeader className="text-center pb-6">
-                <div className="mx-auto h-20 w-20 rounded-3xl bg-gradient-to-r from-green-500 to-blue-500 flex items-center justify-center mb-6 group-hover:scale-110 transition-all duration-300 shadow-lg">
-                  <Wifi className="h-10 w-10 text-white" />
-                </div>
-                <CardTitle className="text-2xl font-playfair group-hover:text-primary transition-colors">
-                  Wi-Fi Connection
-                </CardTitle>
-                <CardDescription className="text-base">
-                  Connect via Wi-Fi for continuous monitoring and real-time alerts
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="text-center space-y-4">
-                <div className="flex justify-center space-x-2 text-sm text-muted-foreground">
-                  <div className="flex items-center space-x-1">
-                    <Radio className="h-4 w-4" />
-                    <span>Always Online</span>
-                  </div>
-                  <div className="flex items-center space-x-1">
-                    <Zap className="h-4 w-4" />
-                    <span>Real-time Sync</span>
-                  </div>
-                </div>
-                {connectionType === "wifi" && isConnecting && (
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-center space-x-2 text-primary">
-                      <Loader2 className="h-5 w-5 animate-spin" />
-                      <span className="font-medium">Connecting...</span>
+              return (
+                <Card
+                  key={type}
+                  className={`cursor-pointer transition-all duration-500 border-2 card-hover group animate-fade-in-scale ${
+                    isTypeSelected ? "border-primary shadow-glow gradient-card" : "border-border hover:border-primary/50 gradient-card"
+                  }`}
+                  onClick={() => !isConnecting && !isConnected && handleConnect(type)}
+                  style={{ animationDelay: `${idx * 0.1}s` }}
+                >
+                  <CardHeader className="text-center pb-6">
+                    <div className={`mx-auto h-20 w-20 rounded-3xl bg-gradient-to-r ${bgGradient} flex items-center justify-center mb-6 group-hover:scale-110 transition-all duration-300 shadow-lg`}>
+                      <IconComponent className="h-10 w-10 text-white" />
                     </div>
-                    <Progress value={connectionProgress} className="w-full" />
-                  </div>
-                )}
-                {connectionType === "wifi" && isConnected && (
-                  <div className="flex items-center justify-center space-x-2 text-healthy animate-bounce-in">
-                    <Check className="h-5 w-5" />
-                    <span className="font-semibold">Connected Successfully</span>
-                  </div>
-                )}
-              </CardContent>
-            </Card>
+                    <CardTitle className="text-2xl font-playfair group-hover:text-primary transition-colors">
+                      {type === "bluetooth" ? "Bluetooth Connection" : "Wi-Fi Connection"}
+                    </CardTitle>
+                    <CardDescription className="text-base">
+                      {type === "bluetooth"
+                        ? "Connect via Bluetooth for seamless monitoring with automatic sync"
+                        : "Connect via Wi-Fi for continuous monitoring and real-time alerts"}
+                    </CardDescription>
+                  </CardHeader>
+
+                  {isTypeSelected && !isConnecting && !isConnected && (
+                    <CardContent className="text-center space-y-4">
+                      <div className="text-sm text-muted-foreground mb-2">Select a Smart Watch</div>
+                      <div className="flex flex-wrap justify-center gap-3">
+                        {smartWatches.map((watch) => (
+                          <Button
+                            key={watch}
+                            variant={selectedWatch === watch ? "default" : "outline"}
+                            onClick={() => handleSelectWatch(watch)}
+                            className="px-4 py-2"
+                          >
+                            {watch}
+                          </Button>
+                        ))}
+                      </div>
+                    </CardContent>
+                  )}
+
+                  {isTypeSelected && isConnecting && (
+                    <CardContent className="space-y-3">
+                      <div className="flex items-center justify-center space-x-2 text-primary">
+                        <Loader2 className="h-5 w-5 animate-spin" />
+                        <span className="font-medium">Connecting {selectedWatch}...</span>
+                      </div>
+                      <Progress value={connectionProgress} className="w-full" />
+                    </CardContent>
+                  )}
+
+                  {isTypeSelected && isConnected && (
+                    <CardContent className="flex items-center justify-center space-x-2 text-healthy animate-bounce-in">
+                      <Check className="h-5 w-5" />
+                      <span className="font-semibold">Connected Successfully</span>
+                    </CardContent>
+                  )}
+                </Card>
+              );
+            })}
           </div>
 
           {/* Device Status */}
@@ -159,43 +142,17 @@ const DeviceSetup = () => {
                   <span>Device Connected Successfully</span>
                 </CardTitle>
                 <CardDescription className="text-lg">
-                  Your Beat Aware health monitoring device is now ready and syncing data
+                  Your Beat Aware health monitoring device ({selectedWatch}) is now ready and syncing data
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  <div className="text-center p-4 rounded-2xl bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-200">
-                    <Badge variant="secondary" className="mb-2">Heart Rate</Badge>
-                    <div className="text-2xl font-bold text-primary">●</div>
-                  </div>
-                  <div className="text-center p-4 rounded-2xl bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-200">
-                    <Badge variant="secondary" className="mb-2">SpO2 Sensor</Badge>
-                    <div className="text-2xl font-bold text-primary">●</div>
-                  </div>
-                  <div className="text-center p-4 rounded-2xl bg-gradient-to-r from-green-500/10 to-blue-500/10 border border-green-200">
-                    <Badge variant="secondary" className="mb-2">Temperature</Badge>
-                    <div className="text-2xl font-bold text-primary">●</div>
-                  </div>
-                  <div className="text-center p-4 rounded-2xl bg-gradient-to-r from-red-500/10 to-pink-500/10 border border-red-200">
-                    <Badge variant="secondary" className="mb-2">Blood Pressure</Badge>
-                    <div className="text-2xl font-bold text-primary">●</div>
-                  </div>
-                </div>
-                
-                <div className="text-center space-y-4">
-                  <div className="p-6 rounded-2xl bg-gradient-to-r from-primary/5 to-primary/10 border border-primary/20">
-                    <div className="text-lg font-semibold text-primary mb-2">Ready to Monitor Your Health</div>
-                    <div className="text-muted-foreground">All sensors are active and data synchronization is enabled</div>
-                  </div>
-                  
-                  <Button 
-                    onClick={handleContinue}
-                    size="lg"
-                    className="gradient-primary text-white font-semibold px-10 py-6 rounded-2xl shadow-lg hover:shadow-glow transition-all duration-300 transform hover:scale-105"
-                  >
-                    Continue to Dashboard
-                  </Button>
-                </div>
+                <Button
+                  onClick={handleContinue}
+                  size="lg"
+                  className="gradient-primary text-white font-semibold px-10 py-6 rounded-2xl shadow-lg hover:shadow-glow transition-all duration-300 transform hover:scale-105"
+                >
+                  Continue to Dashboard
+                </Button>
               </CardContent>
             </Card>
           )}
