@@ -64,7 +64,6 @@ const Location = () => {
   }, []);
 
   const handleEmergencyCall = () => {
-    // In a real app, this would call emergency services
     window.open("tel:911");
   };
 
@@ -73,18 +72,17 @@ const Location = () => {
   };
 
   const handleGetDirections = (hospitalName: string) => {
-    // In a real app, this would open maps with directions
     const query = encodeURIComponent(hospitalName);
     window.open(`https://www.google.com/maps/search/${query}`, "_blank");
   };
 
   return (
-    <div className="min-h-screen bg-background p-4">
+    <div className="min-h-screen bg-background p-4 font-sans">
       <div className="max-w-4xl mx-auto space-y-8">
         {/* Header */}
         <div className="space-y-4">
-          <h1 className="text-3xl font-bold">Emergency Locations</h1>
-          <p className="text-muted-foreground">
+          <h1 className="text-3xl font-bold font-sans">Emergency Locations</h1>
+          <p className="text-muted-foreground font-sans">
             Find nearby hospitals and emergency services
           </p>
         </div>
@@ -92,13 +90,13 @@ const Location = () => {
         {/* Emergency Action */}
         <Card className="gradient-card shadow-card border-critical/20">
           <CardHeader>
-            <CardTitle className="text-critical">Emergency Services</CardTitle>
-            <CardDescription>In case of medical emergency</CardDescription>
+            <CardTitle className="text-critical font-sans">Emergency Services</CardTitle>
+            <CardDescription className="font-sans">In case of medical emergency</CardDescription>
           </CardHeader>
           <CardContent>
             <Button 
               onClick={handleEmergencyCall}
-              className="w-full bg-critical hover:bg-critical/90 text-critical-foreground"
+              className="w-full bg-critical hover:bg-critical/90 text-critical-foreground font-sans"
               size="lg"
             >
               <Phone className="h-5 w-5 mr-2" />
@@ -110,28 +108,28 @@ const Location = () => {
         {/* Current Location */}
         <Card className="gradient-card shadow-card">
           <CardHeader>
-            <CardTitle className="flex items-center space-x-2">
+            <CardTitle className="flex items-center space-x-2 font-sans">
               <MapPin className="h-5 w-5 text-primary" />
               <span>Current Location</span>
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-lg">{currentLocation}</p>
+            <p className="text-lg font-sans">{currentLocation}</p>
           </CardContent>
         </Card>
 
         {/* Map Placeholder */}
         <Card className="gradient-card shadow-card">
           <CardHeader>
-            <CardTitle>Interactive Map</CardTitle>
-            <CardDescription>Your location and nearby hospitals</CardDescription>
+            <CardTitle className="font-sans">Interactive Map</CardTitle>
+            <CardDescription className="font-sans">Your location and nearby hospitals</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="w-full h-64 bg-muted rounded-lg flex items-center justify-center">
               <div className="text-center space-y-2">
                 <MapPin className="h-12 w-12 mx-auto text-primary" />
-                <p className="text-muted-foreground">Interactive map would be displayed here</p>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-muted-foreground font-sans">Interactive map would be displayed here</p>
+                <p className="text-sm text-muted-foreground font-sans">
                   This would integrate with Mapbox or Google Maps to show real-time locations
                 </p>
               </div>
@@ -141,25 +139,25 @@ const Location = () => {
 
         {/* Nearby Hospitals */}
         <div className="space-y-4">
-          <h2 className="text-2xl font-semibold">Nearby Hospitals</h2>
+          <h2 className="text-2xl font-semibold font-sans">Nearby Hospitals</h2>
           <div className="grid gap-4">
             {nearbyHospitals.map((hospital) => (
               <Card key={hospital.id} className="gradient-card shadow-card">
                 <CardHeader>
                   <div className="flex items-start justify-between">
                     <div className="space-y-2">
-                      <CardTitle className="flex items-center space-x-2">
+                      <CardTitle className="flex items-center space-x-2 font-sans">
                         <Hospital className="h-5 w-5 text-primary" />
                         <span>{hospital.name}</span>
                       </CardTitle>
-                      <CardDescription>{hospital.specialty}</CardDescription>
+                      <CardDescription className="font-sans">{hospital.specialty}</CardDescription>
                     </div>
-                    <Badge className="bg-healthy text-healthy-foreground">
+                    <Badge className="bg-healthy text-healthy-foreground font-sans">
                       ★ {hospital.rating}
                     </Badge>
                   </div>
                 </CardHeader>
-                <CardContent className="space-y-4">
+                <CardContent className="space-y-4 font-sans">
                   <div className="grid grid-cols-2 gap-4 text-sm">
                     <div className="flex items-center space-x-2">
                       <Navigation className="h-4 w-4 text-muted-foreground" />
@@ -173,7 +171,7 @@ const Location = () => {
                   <div className="flex space-x-2">
                     <Button 
                       onClick={() => handleCallHospital(hospital.phone)}
-                      className="flex-1"
+                      className="flex-1 font-sans"
                       variant="outline"
                     >
                       <Phone className="h-4 w-4 mr-2" />
@@ -181,7 +179,7 @@ const Location = () => {
                     </Button>
                     <Button 
                       onClick={() => handleGetDirections(hospital.name)}
-                      className="flex-1 gradient-primary text-white"
+                      className="flex-1 gradient-primary text-white font-sans"
                     >
                       <Navigation className="h-4 w-4 mr-2" />
                       Directions
