@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Heart, Shield, Activity, Sparkles, Eye, EyeOff } from "lucide-react";
-import heroImage from "@/assets/hero-health.jpg";
+
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -63,11 +63,7 @@ const Login = () => {
             </div>
           </div>
           <div className="relative float-animation">
-            <img 
-              src={heroImage} 
-              alt="Health monitoring technology" 
-              className="rounded-3xl shadow-glow"
-            />
+           
             <div className="absolute inset-0 bg-gradient-to-t from-primary/20 via-transparent to-transparent rounded-3xl"></div>
           </div>
         </div>
