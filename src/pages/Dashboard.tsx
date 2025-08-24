@@ -126,11 +126,11 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="p-6 space-y-8">
+    <div className="p-6 space-y-8 font-sans">
       {/* Header */}
       <div className="space-y-6 animate-slide-in-up">
         <div className="flex items-center justify-between">
-          <h1 className="text-4xl font-bold font-playfair">Health Dashboard</h1>
+          <h1 className="text-4xl font-bold font-sans">Health Dashboard</h1>
           <div className="flex items-center space-x-2 text-sm text-muted-foreground">
             <Wifi className="h-4 w-4" />
             <span>Real-time sync</span>
@@ -139,14 +139,14 @@ const Dashboard = () => {
         
         <Card className="gradient-card shadow-glow border-0 card-hover">
           <CardHeader>
-            <CardTitle className="flex items-center space-x-3 text-2xl">
+            <CardTitle className="flex items-center space-x-3 text-2xl font-sans">
               <div className="relative">
                 <div className="h-4 w-4 bg-healthy rounded-full animate-pulse-heart"></div>
                 <div className="absolute inset-0 h-4 w-4 bg-healthy/30 rounded-full animate-ping"></div>
               </div>
-              <span className="font-playfair">All Systems Normal</span>
+              <span>All Systems Normal</span>
             </CardTitle>
-            <CardDescription className="text-lg">
+            <CardDescription className="text-lg font-sans">
               Last updated: {new Date().toLocaleTimeString()} • All vitals within healthy ranges
             </CardDescription>
           </CardHeader>
@@ -164,7 +164,7 @@ const Dashboard = () => {
               style={{animationDelay: `${index * 0.1}s`}}
             >
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
-                <CardTitle className="text-base font-medium">
+                <CardTitle className="text-lg font-semibold font-sans">
                   {vital.name}
                 </CardTitle>
                 <div className={`h-12 w-12 rounded-2xl bg-gradient-to-r ${vital.gradient} flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
@@ -211,7 +211,7 @@ const Dashboard = () => {
       <div className="grid md:grid-cols-2 gap-6">
         <Card className="gradient-card shadow-card border-0 animate-fade-in-scale">
           <CardHeader>
-            <CardTitle className="flex items-center space-x-2 font-playfair">
+            <CardTitle className="flex items-center space-x-2 font-sans">
               <Activity className="h-5 w-5 text-primary" />
               <span>Today's Summary</span>
             </CardTitle>
@@ -233,7 +233,7 @@ const Dashboard = () => {
 
         <Card className="gradient-card shadow-card border-0 animate-fade-in-scale" style={{animationDelay: '0.1s'}}>
           <CardHeader>
-            <CardTitle className="flex items-center space-x-2 font-playfair">
+            <CardTitle className="flex items-center space-x-2 font-sans">
               <AlertTriangle className="h-5 w-5 text-warning" />
               <span>Health Alerts</span>
             </CardTitle>
