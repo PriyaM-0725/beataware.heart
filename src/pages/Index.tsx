@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Heart, Activity, Shield, Zap, BarChart3, MapPin, Star, ArrowRight } from "lucide-react";
-import heroImage from "@/assets/hero-health.jpg";
+
 
 const Index = () => {
   const navigate = useNavigate();
@@ -126,11 +126,6 @@ const Index = () => {
             {/* Hero Image */}
             <div className="relative animate-fade-in-scale">
               <div className="relative float-animation">
-                <img 
-                  src={heroImage} 
-                  alt="Advanced health monitoring technology" 
-                  className="rounded-3xl shadow-glow"
-                />
                 <div className="absolute inset-0 bg-gradient-to-t from-primary/20 via-transparent to-transparent rounded-3xl"></div>
               </div>
               {/* Floating elements */}
