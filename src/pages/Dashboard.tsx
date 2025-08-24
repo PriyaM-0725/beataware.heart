@@ -98,15 +98,6 @@ const Dashboard = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case "healthy": return "text-healthy";
-      case "warning": return "text-warning";
-      case "critical": return "text-critical";
-      default: return "text-muted-foreground";
-    }
-  };
-
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "healthy": return <Badge className="bg-healthy text-healthy-foreground">Normal</Badge>;
@@ -137,7 +128,7 @@ const Dashboard = () => {
           </div>
         </div>
         
-        <Card className="gradient-card shadow-glow border-0 card-hover">
+        <Card className="gradient-card shadow-glow border-0">
           <CardHeader>
             <CardTitle className="flex items-center space-x-3 text-2xl font-sans">
               <div className="relative">
@@ -160,14 +151,14 @@ const Dashboard = () => {
           return (
             <Card 
               key={vital.id} 
-              className="gradient-card shadow-card border-0 card-hover group animate-fade-in-scale" 
+              className="gradient-card shadow-card border-0 animate-fade-in-scale" 
               style={{animationDelay: `${index * 0.1}s`}}
             >
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
                 <CardTitle className="text-lg font-semibold font-sans">
                   {vital.name}
                 </CardTitle>
-                <div className={`h-12 w-12 rounded-2xl bg-gradient-to-r ${vital.gradient} flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
+                <div className={`h-12 w-12 rounded-2xl bg-gradient-to-r ${vital.gradient} flex items-center justify-center shadow-lg`}>
                   <IconComponent className={`h-6 w-6 text-white ${vital.id === 'heartrate' ? 'animate-pulse-heart' : ''}`} />
                 </div>
               </CardHeader>
