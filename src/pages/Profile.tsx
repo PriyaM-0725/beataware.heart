@@ -48,21 +48,19 @@ const Profile = () => {
 
   const handleSaveProfile = () => {
     setIsEditing(false);
-    // In a real app, this would save to a database
   };
 
   const handleAddEmergencyContact = () => {
-    // In a real app, this would open a modal to add a new contact
     console.log("Add emergency contact");
   };
 
   return (
-    <div className="min-h-screen bg-background p-4">
+    <div className="min-h-screen bg-background p-4 font-sans">
       <div className="max-w-4xl mx-auto space-y-8">
         {/* Header */}
         <div className="space-y-4">
-          <h1 className="text-3xl font-bold">Profile Settings</h1>
-          <p className="text-muted-foreground">
+          <h1 className="text-3xl font-bold font-sans">Profile Settings</h1>
+          <p className="text-muted-foreground font-sans">
             Manage your personal information and emergency contacts
           </p>
         </div>
@@ -74,18 +72,18 @@ const Profile = () => {
               <div className="flex items-center space-x-4">
                 <Avatar className="h-16 w-16">
                   <AvatarImage src="" alt="Profile" />
-                  <AvatarFallback className="text-lg">
+                  <AvatarFallback className="text-lg font-sans">
                     {profile.name.split(' ').map(n => n[0]).join('')}
                   </AvatarFallback>
                 </Avatar>
                 <div>
-                  <CardTitle>Personal Information</CardTitle>
-                  <CardDescription>Your basic profile details</CardDescription>
+                  <CardTitle className="font-sans">Personal Information</CardTitle>
+                  <CardDescription className="font-sans">Your basic profile details</CardDescription>
                 </div>
               </div>
               <Button
                 onClick={() => isEditing ? handleSaveProfile() : setIsEditing(true)}
-                className={isEditing ? "gradient-primary text-white" : ""}
+                className={`font-sans ${isEditing ? "gradient-primary text-white" : ""}`}
                 variant={isEditing ? "default" : "outline"}
               >
                 <Edit3 className="h-4 w-4 mr-2" />
@@ -93,7 +91,7 @@ const Profile = () => {
               </Button>
             </div>
           </CardHeader>
-          <CardContent className="space-y-6">
+          <CardContent className="space-y-6 font-sans">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="name">Full Name</Label>
@@ -149,13 +147,13 @@ const Profile = () => {
         {/* Medical Information */}
         <Card className="gradient-card shadow-card">
           <CardHeader>
-            <CardTitle className="flex items-center space-x-2">
+            <CardTitle className="flex items-center space-x-2 font-sans">
               <Heart className="h-5 w-5 text-primary" />
               <span>Medical Information</span>
             </CardTitle>
-            <CardDescription>Important health details for emergency situations</CardDescription>
+            <CardDescription className="font-sans">Important health details for emergency situations</CardDescription>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className="space-y-4 font-sans">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="bloodType">Blood Type</Label>
@@ -193,19 +191,19 @@ const Profile = () => {
           <CardHeader>
             <div className="flex items-center justify-between">
               <div>
-                <CardTitle className="flex items-center space-x-2">
+                <CardTitle className="flex items-center space-x-2 font-sans">
                   <Shield className="h-5 w-5 text-primary" />
                   <span>Emergency Contacts</span>
                 </CardTitle>
-                <CardDescription>People to contact in case of emergency</CardDescription>
+                <CardDescription className="font-sans">People to contact in case of emergency</CardDescription>
               </div>
-              <Button onClick={handleAddEmergencyContact} variant="outline">
+              <Button onClick={handleAddEmergencyContact} variant="outline" className="font-sans">
                 <Plus className="h-4 w-4 mr-2" />
                 Add Contact
               </Button>
             </div>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className="space-y-4 font-sans">
             {emergencyContacts.map((contact, index) => (
               <div key={contact.id}>
                 {index > 0 && <Separator className="my-4" />}
@@ -213,22 +211,22 @@ const Profile = () => {
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-3">
                       <Avatar>
-                        <AvatarFallback>
+                        <AvatarFallback className="font-sans">
                           {contact.name.split(' ').map(n => n[0]).join('')}
                         </AvatarFallback>
                       </Avatar>
                       <div>
-                        <h4 className="font-medium">{contact.name}</h4>
-                        <Badge variant="secondary">{contact.relationship}</Badge>
+                        <h4 className="font-medium font-sans">{contact.name}</h4>
+                        <Badge variant="secondary" className="font-sans">{contact.relationship}</Badge>
                       </div>
                     </div>
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pl-12">
-                    <div className="flex items-center space-x-2 text-sm">
+                    <div className="flex items-center space-x-2 text-sm font-sans">
                       <Phone className="h-4 w-4 text-muted-foreground" />
                       <span>{contact.phone}</span>
                     </div>
-                    <div className="flex items-center space-x-2 text-sm">
+                    <div className="flex items-center space-x-2 text-sm font-sans">
                       <Mail className="h-4 w-4 text-muted-foreground" />
                       <span>{contact.email}</span>
                     </div>
@@ -242,19 +240,19 @@ const Profile = () => {
         {/* Device Information */}
         <Card className="gradient-card shadow-card">
           <CardHeader>
-            <CardTitle>Connected Devices</CardTitle>
-            <CardDescription>Health monitoring devices linked to your account</CardDescription>
+            <CardTitle className="font-sans">Connected Devices</CardTitle>
+            <CardDescription className="font-sans">Health monitoring devices linked to your account</CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="font-sans">
             <div className="flex items-center justify-between p-4 border rounded-lg">
               <div className="flex items-center space-x-3">
                 <div className="h-3 w-3 bg-healthy rounded-full"></div>
                 <div>
-                  <p className="font-medium">BeatAware Health Monitor Pro</p>
-                  <p className="text-sm text-muted-foreground">Connected via Bluetooth</p>
+                  <p className="font-medium font-sans">BeatAware Health Monitor Pro</p>
+                  <p className="text-sm text-muted-foreground font-sans">Connected via Bluetooth</p>
                 </div>
               </div>
-              <Badge className="bg-healthy text-healthy-foreground">Active</Badge>
+              <Badge className="bg-healthy text-healthy-foreground font-sans">Active</Badge>
             </div>
           </CardContent>
         </Card>
