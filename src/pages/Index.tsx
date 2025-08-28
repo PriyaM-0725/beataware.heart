@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Heart, Activity, Shield, Zap, BarChart3, MapPin, Star, ArrowRight } from "lucide-react";
 
-
 const Index = () => {
   const navigate = useNavigate();
 
@@ -128,17 +127,44 @@ const Index = () => {
               <div className="relative float-animation">
                 <div className="absolute inset-0 bg-gradient-to-t from-primary/20 via-transparent to-transparent rounded-3xl"></div>
               </div>
-              {/* Floating elements */}
+
+              {/* Floating cards */}
               <div className="absolute -top-6 -right-6 p-4 bg-white/20 backdrop-blur-md rounded-2xl border border-white/30 animate-bounce-in">
                 <div className="flex items-center space-x-2">
                   <Heart className="h-5 w-5 text-white animate-pulse-heart" />
                   <span className="text-white font-semibold">72 BPM</span>
                 </div>
               </div>
-              <div className="absolute -bottom-6 -left-6 p-4 bg-white/20 backdrop-blur-md rounded-2xl border border-white/30 animate-bounce-in" style={{animationDelay: '0.2s'}}>
+              <div
+                className="absolute -bottom-6 -left-6 p-4 bg-white/20 backdrop-blur-md rounded-2xl border border-white/30 animate-bounce-in"
+                style={{ animationDelay: "0.2s" }}
+              >
                 <div className="flex items-center space-x-2">
                   <Activity className="h-5 w-5 text-white" />
                   <span className="text-white font-semibold">98% SpO2</span>
+                </div>
+              </div>
+
+              {/* Bigger translucent beating heart with ECG */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="relative scale-125">
+                  {/* Heart */}
+                  <Heart className="h-40 w-40 text-white/40 animate-pulse-heart drop-shadow-lg" />
+                  {/* ECG overlay */}
+                  <svg
+                    className="absolute inset-0 w-52 h-40 animate-ecg"
+                    viewBox="0 0 200 100"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M0 50 H40 L50 30 L60 70 L70 50 H120 L130 20 L140 80 L150 50 H200"
+                      stroke="rgba(255,255,255,0.7)"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
                 </div>
               </div>
             </div>

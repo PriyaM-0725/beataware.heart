@@ -247,6 +247,22 @@ All colors MUST be HSL for proper theming.
     transform: translateY(0);
   }
 }
+@keyframes ecg {
+  0% {
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+  }
+  100% {
+    stroke-dasharray: 100;
+    stroke-dashoffset: -100;
+  }
+}
+
+.animate-ecg {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  animation: ecg 2s linear infinite;
+}
 
 @keyframes fadeInScale {
   from {
